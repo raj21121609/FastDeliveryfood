@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Gateway | Foodie Restaurant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--accent:#fb7a2f}
+    html,body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+    .glass{
+      background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.65));
+      backdrop-filter: blur(6px);
+    }
+    .tab-btn.active{border-color:var(--accent);color:var(--accent)}
+    .pulse-accent{animation:pulse 2.5s infinite}
+    @keyframes float {0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+  </style>
+</head>
+<body class="bg-gradient-to-br from-orange-50 via-white to-orange-100 min-h-screen flex items-center justify-center p-6">
+
+  <main class="w-full max-w-5xl">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+
+      <!-- Left: Payment Card -->
+      <section class="md:col-span-2 glass shadow-2xl rounded-2xl p-8">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h1 class="text-2xl md:text-3xl font-bold text-orange-600">🍽 Foodie Restaurant</h1>
+            <p class="text-sm text-gray-500">Secure payment gateway</p>
+          </div>
+          <div class="text-right">
+            <p class="text-sm text-gray-500">Order #<span class="font-medium">A1023</span></p>
+            <p class="text-sm text-gray-500">Estimated: <span class="font-medium">25–35 min</span></p>
+          </div>
+        </div>
+
+        <!-- Tabs -->
+        <nav class="flex gap-3 mb-6 overflow-auto">
+          <button class="tab-btn active inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-transparent text-sm font-medium shadow-sm" data-target="UPI"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="opacity-90"><path d="M12 2l3 5h-6l3-5zM4 22h16v-2H4v2z" fill="currentColor"/></svg> UPI</button>
+          <button class="tab-btn inline-flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-medium shadow-sm" data-target="Card"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="opacity-80"><rect x="2" y="5" width="20" height="14" rx="2" fill="currentColor"/></svg> Card</button>
+          <button class="tab-btn inline-flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-medium shadow-sm" data-target="NetBanking">Net Banking</button>
+          <button class="tab-btn inline-flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-medium shadow-sm" data-target="Wallet">Wallet</button>
+          <button class="tab-btn inline-flex items-center gap-2 px-4 py-2 rounded-lg border text-sm font-medium shadow-sm" data-target="COD">COD</button>
+        </nav>
+
+        <!-- Content Panels -->
+        <div>
+          <div class="tab-content block" id="UPI">
+            <label class="block text-gray-700 font-medium mb-2">Enter UPI ID</label>
+            <div class="flex items-center gap-3">
+              <input type="text" placeholder="example@upi" class="flex-1 border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-orange-200 outline-none">
+              <button class="bg-white border border-orange-200 text-orange-600 px-4 py-2 rounded-lg shadow-sm hover:shadow-md">Detect</button>
+            </div>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <button class="py-3 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 text-white font-semibold hover:opacity-95 transition">Pay ₹499</button>
+              <button class="py-3 rounded-lg border border-gray-200 bg-white hover:bg-orange-50">Save UPI</button>
+              <button class="py-3 rounded-lg border border-gray-200 bg-white hover:bg-orange-50">More Options</button>
+            </div>
+          </div>
+
+          <div class="tab-content hidden" id="Card">
+            <label class="block text-gray-700 font-medium mb-2">Card Number</label>
+            <input type="text" placeholder="xxxx xxxx xxxx xxxx" class="w-full border border-gray-200 rounded-lg px-4 py-3 mb-3 focus:ring-2 focus:ring-orange-200 outline-none">
+            <div class="flex gap-4">
+              <div class="flex-1">
+                <label class="block text-gray-700 mb-2">Expiry</label>
+                <input type="text" placeholder="MM/YY" class="w-full border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-orange-200 outline-none">
+              </div>
+              <div class="w-32">
+                <label class="block text-gray-700 mb-2">CVV</label>
+                <input type="password" placeholder="***" class="w-full border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-orange-200 outline-none">
+              </div>
+            </div>
+            <div class="mt-4 flex gap-3">
+              <button class="flex-1 py-3 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 text-white font-semibold">Pay ₹499</button>
+              <button class="w-40 py-3 rounded-lg border border-gray-200">Save Card</button>
+            </div>
+          </div>
+
+          <div class="tab-content hidden" id="NetBanking">
+            <label class="block text-gray-700 font-medium mb-2">Select Bank</label>
+            <select class="w-full border border-gray-200 rounded-lg px-4 py-3 focus:ring-2 focus:ring-orange-200 outline-none">
+              <option>State Bank of India</option>
+              <option>HDFC Bank</option>
+              <option>ICICI Bank</option>
+              <option>Axis Bank</option>
+              <option>Punjab National Bank</option>
+            </select>
+            <button class="w-full mt-4 py-3 rounded-lg bg-orange-600 text-white font-semibold">Proceed to Pay</button>
+          </div>
+
+          <div class="tab-content hidden" id="Wallet">
+            <label class="block text-gray-700 font-medium mb-2">Select Wallet</label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <button class="py-3 rounded-lg border border-gray-200">Paytm</button>
+              <button class="py-3 rounded-lg border border-gray-200">PhonePe</button>
+              <button class="py-3 rounded-lg border border-gray-200">Amazon Pay</button>
+            </div>
+            <button class="w-full mt-4 py-3 rounded-lg bg-orange-600 text-white font-semibold">Pay ₹499</button>
+          </div>
+
+          <div class="tab-content hidden" id="COD">
+            <p class="text-gray-700 text-center mb-4">Pay with cash when your food is delivered 🍕</p>
+            <button class="w-full py-3 rounded-lg bg-emerald-500 text-white font-semibold">Confirm Order</button>
+          </div>
+        </div>
+
+        <p class="text-sm text-gray-500 text-center mt-6">🔒 100% Secure Payment | Powered by <span class="font-medium">FoodiePay</span></p>
+      </section>
+
+      <!-- Right: Summary -->
+      <aside class="md:col-span-1 bg-white rounded-2xl p-6 shadow-md">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-semibold">Order Summary</h3>
+          <span class="text-sm text-gray-500">for table 4</span>
+        </div>
+        <ul class="divide-y divide-gray-100 mb-4">
+          <li class="py-3 flex justify-between items-center">
+            <div>
+              <p class="font-medium">Margherita Pizza</p>
+              <p class="text-xs text-gray-400">Thin crust • Large</p>
+            </div>
+            <p class="font-semibold">₹299</p>
+          </li>
+          <li class="py-3 flex justify-between items-center">
+            <div>
+              <p class="font-medium">Coke</p>
+              <p class="text-xs text-gray-400">500ml</p>
+            </div>
+            <p class="font-semibold">₹99</p>
+          </li>
+        </ul>
+        <div class="flex justify-between items-center mb-4">
+          <p class="text-sm text-gray-500">Delivery</p>
+          <p class="text-sm text-gray-700">₹49</p>
+        </div>
+        <div class="flex justify-between items-center border-t pt-4">
+          <p class="font-semibold">Total</p>
+          <p class="text-xl font-bold">₹447</p>
+        </div>
+        <div class="mt-6">
+          <button class="w-full py-3 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 text-white font-semibold">Pay ₹447</button>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <script>
+    // Tab switching using data-target attribute
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.tab-content');
+
+    function activate(targetId, btn){
+      tabButtons.forEach(b=>{b.classList.remove('active'); b.classList.remove('text-orange-600'); b.classList.remove('border-orange-600')});
+      panels.forEach(p=>p.classList.add('hidden'));
+      btn.classList.add('active');
+      document.getElementById(targetId).classList.remove('hidden');
+    }
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', ()=>{
+        const target = btn.getAttribute('data-target');
+        activate(target, btn);
+      });
+    });
+  </script>
+
+</body>
+</html>
+

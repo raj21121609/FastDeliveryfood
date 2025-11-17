@@ -164,14 +164,22 @@ def entry(request):
 
         # ---- SIGNUP FORM ----
         if form_name == 'signup_form':
-            signup_form = CreateUser(request.POST)
+            # Allow template to send only one password field (password1).
+            # If password2 is missing, copy password1 into password2 so
+            # UserCreationForm validation succeeds without rendering confirm field.
+            post_data = request.POST.copy()
+            if 'password1' in post_data and 'password2' not in post_data:
+                post_data['password2'] = post_data.get('password1')
+
+            signup_form = CreateUser(post_data)
             if signup_form.is_valid():
                 user = signup_form.save()
                 login(request, user)
                 messages.success(request, f"Welcome, {user.username}!")
                 return redirect('menu')
             else:
-                messages.error(request, "Invalid signup details.")
+                # show form errors to help debugging
+                messages.error(request, signup_form.errors.as_text())
 
         # ---- LOGIN FORM ----
         elif form_name == 'login_form':
@@ -192,3 +200,6 @@ def entry(request):
             'login_form': login_form
         }
     )
+    
+def payment(request):
+    return render (request, "app/payment.html")
