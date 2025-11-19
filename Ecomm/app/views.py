@@ -7,6 +7,7 @@ from .forms import CreateUser
 from django.contrib.auth import login
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
+from django.db.models import Sum
 
 # Create your views here.
 def home (request):
@@ -202,4 +203,17 @@ def entry(request):
     )
     
 def payment(request):
-    return render (request, "app/payment.html")
+    user = request.user
+    obj = Cart.objects.filter(user = user)
+    tot_arr = []
+    prd_info = Cart.objects.all()
+    for item in prd_info:
+        tot_arr.append(item.prd_quantity*item.cart_prd_price)
+    total = 49
+    for i in tot_arr:
+        total = total + i
+    
+    
+    result = Cart.objects.filter(user = user).aggregate(total_amount = Sum('cart_prd_price'))
+    print(result['total_amount'])
+    return render (request, "app/payment.html" , {'data':obj ,'tot':total})

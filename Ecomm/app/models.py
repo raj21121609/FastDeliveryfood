@@ -47,7 +47,7 @@ class Cart(models.Model):
     prd_quantity = models.PositiveIntegerField(default = 1)
     
     def __str__(self):
-        return f"{self.cart_prd_name} - ₹{self.cart_prd_price}"
+        return f"{self.cart_prd_name} - ₹{self.cart_prd_price} - {self.user}"
 
 class UserTotal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

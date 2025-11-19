@@ -118,20 +118,14 @@
           <span class="text-sm text-gray-500">for table 4</span>
         </div>
         <ul class="divide-y divide-gray-100 mb-4">
+          {% for item in data %}
           <li class="py-3 flex justify-between items-center">
             <div>
-              <p class="font-medium">Margherita Pizza</p>
-              <p class="text-xs text-gray-400">Thin crust • Large</p>
+              <p class="font-medium">{{item.cart_prd_name}}</p>
             </div>
-            <p class="font-semibold">₹299</p>
+            <p class="font-semibold">₹{% widthratio item.cart_prd_price 1 item.prd_quantity%}</p>
           </li>
-          <li class="py-3 flex justify-between items-center">
-            <div>
-              <p class="font-medium">Coke</p>
-              <p class="text-xs text-gray-400">500ml</p>
-            </div>
-            <p class="font-semibold">₹99</p>
-          </li>
+          {% endfor %}
         </ul>
         <div class="flex justify-between items-center mb-4">
           <p class="text-sm text-gray-500">Delivery</p>
@@ -139,7 +133,7 @@
         </div>
         <div class="flex justify-between items-center border-t pt-4">
           <p class="font-semibold">Total</p>
-          <p class="text-xl font-bold">₹447</p>
+          <p class="text-xl font-bold">₹{{tot}}</p>
         </div>
         <div class="mt-6">
           <button class="w-full py-3 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 text-white font-semibold">Pay ₹447</button>
@@ -150,7 +144,6 @@
   </main>
 
   <script>
-    // Tab switching using data-target attribute
     const tabButtons = document.querySelectorAll('.tab-btn');
     const panels = document.querySelectorAll('.tab-content');
 
